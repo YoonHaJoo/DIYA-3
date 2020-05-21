@@ -14,7 +14,9 @@
 ### 2 CONVNET CONFIGURATIONS
 ### 2.1 ARCHITECTURE
 
+* Dataset: ILSVRC-2012 dataset
+* Preprocessing: subtracting the mean RGB value, computed on the training set, from each pixel
+* Convolutional (conv.) layers with a very small receptive field: 3 × 3    * which is the smallest size to capture the notion of left/right, up/down, center
 
-
-
+### 2.2 CONFIGURATIONS
 
