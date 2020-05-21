@@ -6,8 +6,9 @@
 * 모든 필터 커널의 사이즈를 줄이고 대신 네트워크의 깊이를 깊게 하여 computation time을 줄이고 accuracy를 향상시킴을 증명함
 * 2014년 ImageNet 인식 대회에서 준우승  
   
+  
 ### 1. INTRODUCTION
-##### - Objective: investigate the effect of the convolutional network depth on its accuracy in the large-scale image recognition setting
+* Objective: investigate the effect of the convolutional network depth on its accuracy in the large-scale image recognition setting
   
   
 ### 2 CONVNET CONFIGURATIONS
