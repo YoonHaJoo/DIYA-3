@@ -1,9 +1,13 @@
 # GAN Detection By Classification
 
 우리는 GAN을 통해 생성된 가짜 이미지를 판별하는 문제를 이미지 분류(image classification) 문제에 대응시켜서 해결할 수 있을 것이라 판단하였다. 즉, 이미지 속의 대상이 개, 고양이, 코끼리인지 분류하는 이미지 분류 문제와 마찬가지로 주어진 이미지가 여러 GAN 모델 중 어떤 모델을 통해서 생성되었는지 판별할 수 있을 것이라 생각했다. 실제로 manipulation detection을 다룬 기존 연구들에서 각각의 GAN 모델은 이미지를 생성할 때 특유의 fingerprint를 남긴다고 하였다 [1], [2]. GAN fingerprint는 사람의 눈으로는 판별할 수 없는 미세한 패턴이지만 딥러닝 모델을 통해서는 추출이 가능한 특징이기 때문에 진짜인지 가짜인지 파악하기 어려운 정교한 합성 이미지에 대해서도 효과적으로 진위를 구별해낼 수 있다.
+- 검증받은 데이터에 대해서 분류가능여부를 판단
+
 
 ## 실험 셋업
 Classification 기반으로 GAN detection이 가능할 것이라는 가정하에 우리는 2가지 방식의 실험을 진행하였다. 첫 번째는 binary classification 실험으로, 진짜 이미지와 여러 GAN 모델을 통해 생성된 합성 이미지들을 통해 모델이 'real'과 'fake'를 판별해내도록 모델을 학습시켰다. 두 번째는 multi-class classification으로, 4가지 GAN 모델을 통해 생성된 가짜 이미지들을 통해서 주어진 이미지가 어떠한 GAN을 통해 생성이 되었는지 분류해내도록 모델을 학습하였다.
+
+- Transfer learning을 실시
 
 ### 학습 데이터
 GAN 연구에서 흔히 사용되는 CelebA-HQ(1024 x 1024)와 FFHQ(1024 x 1024)를 통해 학습된 4가지 GAN을 통해서 가짜 이미지들을 생성하였다. GAN은 MSG-GAN, StyleGAN, PGGAN, VGAN을 사용하였고, 각각의 GAN 모델들에서 1만 장의 HQ 이미지를 생성하여 총 4만장의 데이터셋을 구성하였다. Multi-class classification에서는 CelebA-HQ 데이터셋으로 학습된 GAN 모델들로 생성한 이미지를 사용하였고, Real-fake binary classification에서는 FFHQ 이미지 원본은 real label 데이터로, FFHQ로 학습된 GAN 모델들이 생성한 이미지를 fake label 데이터로 사용하였다.
