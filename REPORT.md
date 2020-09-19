@@ -1,27 +1,28 @@
-# GAN Detection By Classification
+# 목적
+- 앞의 실험에서는 본 연구에서 구현한 GAN모델로 생성한 fake face image를 대상으로 ResNet & Xception을 이용하여 classification을 실시한 결과 높은 정확도를 확인함
+- 본 실험에서는 기관에서 검증하여 이전 실험에서 사용한 데이터보다 classification이 어려운 데이터를 대상으로 real or fake face image classification 가능여부를 검증함
 
-우리는 GAN을 통해 생성된 가짜 이미지를 판별하는 문제를 이미지 분류(image classification) 문제에 대응시켜서 해결할 수 있을 것이라 판단하였다. 즉, 이미지 속의 대상이 개, 고양이, 코끼리인지 분류하는 이미지 분류 문제와 마찬가지로 주어진 이미지가 여러 GAN 모델 중 어떤 모델을 통해서 생성되었는지 판별할 수 있을 것이라 생각했다. 실제로 manipulation detection을 다룬 기존 연구들에서 각각의 GAN 모델은 이미지를 생성할 때 특유의 fingerprint를 남긴다고 하였다 [1], [2]. GAN fingerprint는 사람의 눈으로는 판별할 수 없는 미세한 패턴이지만 딥러닝 모델을 통해서는 추출이 가능한 특징이기 때문에 진짜인지 가짜인지 파악하기 어려운 정교한 합성 이미지에 대해서도 효과적으로 진위를 구별해낼 수 있다.
-- 검증받은 데이터에 대해서 분류가능여부를 판단
+## 데이터 및 학습방법
+- Deepfake Detection Challenge에서 사용된 fake / real face image(1024 x 1024)를 각각 2만장씩 총 4만장을 Kaggle에서 확보함
+  * 이미지 생성시 사용된 GAN의 종류는 불명이나, 대회 특성 상 다양한 GAN모델을 사용한 것으로 추정
+- ResNet50 및 MovileNet을 이용하여 real or fake 여부를 classification하도록 transfer learning을 실시함
+  * Training image number/ validation image number/ batch size/ learning rate: 20000/ 20000/ 20/ 0.0001
 
+### 실험환경
+- Google Colab
+- GEFORCE GTX 1080 Ti 1개
 
-## 실험 셋업
-Classification 기반으로 GAN detection이 가능할 것이라는 가정하에 우리는 2가지 방식의 실험을 진행하였다. 첫 번째는 binary classification 실험으로, 진짜 이미지와 여러 GAN 모델을 통해 생성된 합성 이미지들을 통해 모델이 'real'과 'fake'를 판별해내도록 모델을 학습시켰다. 두 번째는 multi-class classification으로, 4가지 GAN 모델을 통해 생성된 가짜 이미지들을 통해서 주어진 이미지가 어떠한 GAN을 통해 생성이 되었는지 분류해내도록 모델을 학습하였다.
+## 실험결과 및 고찰
+- ResNet50/ MovileNet 학습결과: accuracy 0.51/ 0.62
+- 상기 2가지 모델로 transfer learning을 실시했으나 결과는 저조함
+- 이는 real or fake classification은 형태 및 색깔 등 단순히 사물을 불류하는 weight로는 분리할 수 없으며
+- 이에 convolution network을 처음부터 학습이 필요하다고 판단됨
+- 추후 
 
-- Transfer learning을 실시
-
-### 학습 데이터
-GAN 연구에서 흔히 사용되는 CelebA-HQ(1024 x 1024)와 FFHQ(1024 x 1024)를 통해 학습된 4가지 GAN을 통해서 가짜 이미지들을 생성하였다. GAN은 MSG-GAN, StyleGAN, PGGAN, VGAN을 사용하였고, 각각의 GAN 모델들에서 1만 장의 HQ 이미지를 생성하여 총 4만장의 데이터셋을 구성하였다. Multi-class classification에서는 CelebA-HQ 데이터셋으로 학습된 GAN 모델들로 생성한 이미지를 사용하였고, Real-fake binary classification에서는 FFHQ 이미지 원본은 real label 데이터로, FFHQ로 학습된 GAN 모델들이 생성한 이미지를 fake label 데이터로 사용하였다.
-
-### 실험 환경
-- 18-core Intel Xeon E5-2695 @ 2.10 GHz and an NVIDIA Titan X GPU 2개.
-- Ubuntu 18.04, CUDA 10.1, cuDNN 7, Python 3.7.7
-- GAN 이미지 생성에는 TF v1.15.0을, GAN Detection에는 PyTorch v1.6.0을 활용하였다.
-
-## Binary Classification
-
-<p align="center"><img src="images/resnet50_binary_training_log.png" width="500" alt="binary resnet50 chart"></img></p>
 
 'real'과 'fake'를 판별하는 첫 번째 실험에서는 ImageNet으로 사전 학습된 ResNet-50를 baseline network로 사용하였다. Linear classifier 부분만 binary classification을 하도록 수정하여 fine-tuning한 결과 위의 그림과 같이 99%의 정확도를 보였다. 즉, ImageNet으로 사전 학습된 네트워크를 manipulation detection task에 효과적으로 활용하는 것이 가능하며, image classification에서 얻을 수 있는 정확도 보다 높은 정확도를 얻을 수 있다. 사람에게는 사진 속의 대상이 개인지 고양이인지 알아 맞추는 것이 정교한 가짜 이미지를 보고 진위를 판별해내는 것보다 훨씬 쉬운 일이지만 딥러닝에서는 진짜, 가짜를 판별하는 것이 훨씬 쉬운 일이라고 할 수 있다.
+
+
 
 ## Multi-Class Classification
 
