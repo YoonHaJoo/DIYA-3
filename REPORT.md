@@ -14,6 +14,10 @@
 
 ## 실험결과 및 고찰
 - ResNet50/ MovileNet accuracy: 0.51/ 0.68
+
+![result](https://user-images.githubusercontent.com/52662915/93710328-b76d4a00-fb80-11ea-846e-dc4aa3423b50.png)
+
+
 - 상기 2가지 모델로 transfer learning을 실시했으나 결과는 저조함
 - 이는 real/fake face image의 경우 structure 및 texture 등 ImageNet 사물을 불류하는 weight로는 classification이 불가함
 - 이에 convolution network을 처음부터 학습이 필요하다고 판단
