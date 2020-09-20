@@ -19,5 +19,6 @@
 
 
 - 상기 2가지 모델로 transfer learning을 실시했으나 결과는 저조함
-- 이는 real/fake face image의 경우 structure 및 texture 등 ImageNet 사물을 불류하는 weight로는 classification이 불가함
-- 이에 convolution network을 처음부터 학습이 필요하다고 판단
+- 이를 통해 ImageNet에서 structure 및 texture 정보를 이용하여 사물을 분류하는 weight로는 real/fake face image classification이 불가하다고 추정됨
+- 이에 convolution network을 처음부터 학습이 필요하다고 판단되며
+- 추후 적절한 computing power가 갖추어지면 실시 예정
