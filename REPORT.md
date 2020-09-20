@@ -4,6 +4,7 @@
 
 ## 데이터 및 학습방법
 - Deepfake Detection Challenge에서 사용된 fake / real face image(1024 x 1024)를 각각 2만장씩 총 4만장을 Kaggle에서 확보함
+![다운로드](https://user-images.githubusercontent.com/52662915/93710709-a3771780-fb83-11ea-82d6-d298e5c58be6.png)
   * https://www.kaggle.com/c/deepfake-detection-challenge/discussion/121173
   * 이미지 생성시 사용된 GAN의 종류는 불명이나, 대회 특성 상 다양한 GAN모델을 사용한 것으로 추정
 - ResNet50 및 MovileNet을 이용하여 real or fake 여부를 classification하도록 transfer learning을 실시함
