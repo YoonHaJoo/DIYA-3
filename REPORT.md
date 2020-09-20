@@ -1,4 +1,4 @@
-# 목적
+## 목적
 - 앞의 실험에서는 본 연구에서 구현한 GAN모델로 생성한 fake face image를 대상으로 ResNet & Xception을 이용하여 classification을 실시한 결과 높은 정확도를 확인함
 - 본 실험에서는 기관에서 검증하여 이전 실험에서 사용한 데이터보다 classification이 어려운 데이터를 대상으로 real or fake face image classification 가능여부를 검증함
 
@@ -8,7 +8,7 @@
 - ResNet50 및 MovileNet을 이용하여 real or fake 여부를 classification하도록 transfer learning을 실시함
   * Training image number/ validation image number/ batch size/ learning rate: 20000/ 20000/ 20/ 0.0001
 
-### 실험환경
+## 실험환경
 - Google Colab
 - GEFORCE GTX 1080 Ti 1개
 
